@@ -1,0 +1,40 @@
+syntax = "proto3";
+package cheaprpc.ahfuzhang.my_easy_service;
+option go_package = "github.com/ahfuzhang/my_easy_service/pb";
+
+import "google/protobuf/descriptor.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "github.com/ahfuzhang/cheaprpc/proto/public/extensions.proto";
+
+enum MyDefines{
+  NotUse = 0;
+  Yes = 1;
+  No = 2;
+}
+
+message GetReq{
+  string any = 1 [(gogoproto.jsontag) = "json_any"];
+  MyDefines enum_value = 2;
+  int64 id = 3 [(gogoproto.jsontag) = "json_id,string",(gogoproto.moretags) = "gorm:\"field_id\" yaml:\"yaml_id\"",(gogoproto.customname) = "ID"];
+}
+
+message GetRsp{
+  int32 code = 1;
+  string msg = 2;
+  string biz_data = 3;
+}
+
+message SaveReq{
+  string value1 = 1;
+  string value2 = 2;
+}
+
+message SaveRsp{
+  int32 code = 1;
+  string msg = 2;
+}
+
+service MyEasyService{
+  rpc GetEchoInfo(GetReq) returns (GetRsp){ option (public.http_path) = "http/request/get_echo_info";};
+  rpc Save(SaveReq) returns (SaveRsp);
+}
