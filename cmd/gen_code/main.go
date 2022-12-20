@@ -10,8 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	// pb "github.com/ahfuzhang/daily_coding/2022_10_08/pb_extension/github.com/ahfuzhang/daily_coding"
-	// proto "github.com/gogo/protobuf/proto"
+	// "google.golang.org/protobuf/proto"
 	"github.com/golang/protobuf/proto"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/desc/protoparse"
@@ -164,7 +163,7 @@ func eachMethodForRegister(m *desc.MethodDescriptor) []method {
 		return out
 	}
 	// fmt.Printf("%+v\n", op1)
-	httpPath := op1.(*string)
+	httpPath, _ := op1.(*string)
 	out = append(out,
 		method{
 			Path:   *httpPath,
@@ -212,7 +211,8 @@ func getServiceDirNames(pbFile *desc.FileDescriptor) []string {
 	return out
 }
 
-func makeServiceFile(targetPathOfService string, service *desc.ServiceDescriptor, pbFile *desc.FileDescriptor, t *template.Template) {
+func makeServiceFile(targetPathOfService string, service *desc.ServiceDescriptor, pbFile *desc.FileDescriptor,
+	t *template.Template) {
 	serviceFile := filepath.Join(targetPathOfService, strings.ToLower(service.GetName())+".go")
 	f := createFile(serviceFile)
 	param := eachService(service, pbFile)
@@ -223,7 +223,8 @@ func makeServiceFile(targetPathOfService string, service *desc.ServiceDescriptor
 	f.Close()
 }
 
-func makeServiceRegisterFile(targetPathOfService string, service *desc.ServiceDescriptor, pbFile *desc.FileDescriptor, t *template.Template) {
+func makeServiceRegisterFile(targetPathOfService string, service *desc.ServiceDescriptor, pbFile *desc.FileDescriptor,
+	t *template.Template) {
 	registerFile := filepath.Join(targetPathOfService, "register.go")
 	f := createFile(registerFile)
 	param := eachServiceForRegister(service, pbFile)
@@ -281,6 +282,7 @@ func parseFile(protoPath *string, sourceProto *string) *desc.FileDescriptor {
 	return fds[0]
 }
 
+//nolint:lll
 /*
 ./main -proto_path=/Users/ahfuzhang/code/ -source_proto=../../examples/my_easy_service.proto -target_path=../../examples/ -template_path=../../templates/
 */

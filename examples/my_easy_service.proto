@@ -15,7 +15,7 @@ enum MyDefines{
 message GetReq{
   string any = 1 [(gogoproto.jsontag) = "json_any"];
   MyDefines enum_value = 2;
-  int64 id = 3 [(gogoproto.jsontag) = "json_id,string",(gogoproto.moretags) = "gorm:\"field_id\" yaml:\"yaml_id\"",(gogoproto.customname) = "ID"];
+  int64 id = 3 [(gogoproto.jsontag) = "json_id,string", (gogoproto.moretags) = "gorm:\"field_id\" yaml:\"yaml_id\"", (gogoproto.customname) = "ID"];
 }
 
 message GetRsp{
@@ -35,6 +35,12 @@ message SaveRsp{
 }
 
 service MyEasyService{
-  rpc GetEchoInfo(GetReq) returns (GetRsp){ option (public.http_path) = "http/request/get_echo_info";};
+  rpc GetEchoInfo(GetReq) returns (GetRsp){option (public.http_path) = "http/request/get_echo_info";};
   rpc Save(SaveReq) returns (SaveRsp);
 }
+
+service MyEasyService2{
+  rpc GetEchoInfo(GetReq) returns (GetRsp){option (public.http_path) = "http/request/get_echo_info";};
+  rpc Save(SaveReq) returns (SaveRsp);
+}
+

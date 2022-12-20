@@ -1,3 +1,6 @@
 .vscode
 .idea
 main
+temp/
+./test/test_config.yaml
+./pkg/config/example.yaml

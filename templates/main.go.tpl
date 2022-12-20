@@ -4,9 +4,14 @@ import (
     "fmt"
 	"log"
 	"os"
+	"os/signal"
+    "syscall"
 
 	"github.com/ahfuzhang/cheaprpc/pkg/netframework"
 	"github.com/ahfuzhang/cheaprpc/pkg/netframework/gin"
+
+	_ "go.uber.org/automaxprocs"
+
 {{$Package := .Package}}
 {{- range $item := .Services }}
 	"{{$Package}}/internal/services/{{.}}"
@@ -46,5 +51,7 @@ func main() {
 	if err = framework.Start(addr); err != nil {
 		log.Fatalln("start fail:", err.Error())
 	}
-	select {} // block here
+	c := make(chan os.Signal, 1)
+    signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
+    <-c
 }

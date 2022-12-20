@@ -1,0 +1,3 @@
+
+lint:
+	golangci-lint run --modules-download-mode=vendor --version --timeout=60m ./...

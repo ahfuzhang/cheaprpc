@@ -19,12 +19,13 @@ func NewGinFramework() (netframework.Framework, error) {
 }
 
 func (f *GinFramework) Start(addr string) error {
+	var err error
 	go func() {
-		f.engine.Run(addr)
+		err = f.engine.Run(addr)
 	}()
-	return nil
+	return err
 }
 
-func (f *GinFramework) GetRegister() interface{} {
+func (f *GinFramework) GetServiceHandleRegister() interface{} {
 	return f.engine
 }

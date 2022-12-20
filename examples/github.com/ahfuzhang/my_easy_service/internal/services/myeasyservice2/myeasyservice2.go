@@ -1,4 +1,4 @@
-package myeasyservice
+package myeasyservice2
 
 import (
 	"context"
@@ -7,10 +7,10 @@ import (
 	"github.com/ahfuzhang/my_easy_service/pb"
 )
 
-type MyEasyServiceImp struct {
+type MyEasyService2Imp struct {
 }
 
-var Instance = &MyEasyServiceImp{
+var Instance = &MyEasyService2Imp{
 	// todo: add init field if you need
 }
 
@@ -18,11 +18,11 @@ func init() {
 	// todo: init Instance if you need
 }
 
-func (s *MyEasyServiceImp) GetEchoInfo(ctx context.Context, req *pb.GetReq) (*pb.GetRsp, error) {
+func (s *MyEasyService2Imp) GetEchoInfo(ctx context.Context, req *pb.GetReq) (*pb.GetRsp, error) {
 	// TODO: add biz code here
 	return nil, fmt.Errorf("not implement")
 }
-func (s *MyEasyServiceImp) Save(ctx context.Context, req *pb.SaveReq) (*pb.SaveRsp, error) {
+func (s *MyEasyService2Imp) Save(ctx context.Context, req *pb.SaveReq) (*pb.SaveRsp, error) {
 	// TODO: add biz code here
 	return nil, fmt.Errorf("not implement")
 }

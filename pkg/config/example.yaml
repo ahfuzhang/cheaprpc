@@ -1,0 +1,42 @@
+global:
+  namespace: Development
+  env_name: test
+  container_name: ${container_name}
+  local_ip: ${local_ip}
+
+server:
+  app: ${app}                                                #业务的应用名
+  server: ${server}                                         #进程服务名
+  #filter:
+  #  - recovery
+  #  - debuglog
+  admin:
+    ip: ${local_ip}
+    port: ${ADMIN_PORT}
+    read_timeout_ms: 3000
+    write_timeout_ms: 60000
+  service:
+    - name: "my_service"
+      addr: ":8080"
+
+plugins:
+  #registry:
+  #selector:
+  #config:
+
+  log:
+    zap:
+      level: "debug"  # debug info warn error dpanic panic fatal
+      log_path: "./log/"
+      format: "text"   # text json
+      max_age_minutes: 1440
+      rotation_size_mb: 100
+
+  metrics:
+    victoria_metrics:
+      mode: push
+      push_addr: "https://{{.Addr}}/vmagent/176/api/v1/pushgateway/metrics/job/{{.App}}.{{.Server}}/instance/{{.IP}}"
+      push_interval_seconds: 15
+      push_bits_flags: 3  # bit mask, 1-with process, 2-no gzip
+      pull_server_addr: ":8080"
+      pull_http_path: "/metrics"

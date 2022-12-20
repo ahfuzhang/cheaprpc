@@ -4,7 +4,7 @@ proto_path=/Users/ahfuzhang/code/
 build: github.com/ahfuzhang/my_easy_service/pb/my_easy_service.pb.go github.com/ahfuzhang/my_easy_service/main.go
 	@echo "ok"
 
-gen_code: ../cmd/gen_code/gen_code
+gen_code: ../cmd/gen_code/main.go
 	go build -o gen_code ../cmd/gen_code/main.go
 
 github.com/ahfuzhang/my_easy_service/pb/my_easy_service.pb.go:
