@@ -1,3 +1,5 @@
 .vscode
 .idea
 main
+.DS_Store
+examples/github.com/ahfuzhang/my_easy_service/my_easy_service
